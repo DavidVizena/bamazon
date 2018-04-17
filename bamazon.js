@@ -9,6 +9,13 @@ var connection = mysql.createConnection({
     database: "bamazon_DB"
 })
 
-connection.connect(function(err){
-    console.log(`Connected as id: ${connection.threadId}`);
+
+module.exports = {
+items: connection.connect(function(err){
+    if (err) throw err;
+    connection.query("SELECT * FROM products", function(err, result, fields){
+        if (err) throw err;
+        console.log(result);
+    })
 })
+};
