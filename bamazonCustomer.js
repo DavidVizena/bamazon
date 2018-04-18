@@ -2,10 +2,23 @@ var mysql = require('mysql');
 var inquirer = require('inquirer');
 
 
+var connection = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "",
+    database: "bamazon_DB"
+});
+
+ connection.connect(function(err){
+    if (err) throw err;
+    connection.query("SELECT * FROM products", function(err, result){
+        if (err) throw err;
+        findItem(result);
+    })
+ });
 
 
-// 
-findItem(bamazon.items);
 function findItem(results) {
     console.log(results);
     inquirer.prompt([
@@ -32,6 +45,7 @@ function findItem(results) {
             for (var i = 0; i < results.length; i++) {
                 if (results[i].product_name === answer.product_name) {
                     chosenItem = results[i];
+                    console.log(chosenItem);
                 }
             }
         })
