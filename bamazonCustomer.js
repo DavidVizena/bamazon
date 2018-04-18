@@ -14,12 +14,12 @@ var connection = mysql.createConnection({
     if (err) throw err;
     connection.query("SELECT * FROM products", function(err, result){
         if (err) throw err;
-        findItem(result);
+        selectItem(result);
     })
  });
 
 
-function findItem(results) {
+function selectItem(results) {
     console.log(results);
     inquirer.prompt([
         {
@@ -41,11 +41,15 @@ function findItem(results) {
         }
     ])
         .then(function (answer) {
+            var id = answer.product;
+            var howMany = answer.quantity;
             var chosenItem;
+            connection.query(`SELECT * FROM products WHERE item_id = ${id}`);
             for (var i = 0; i < results.length; i++) {
                 if (results[i].product_name === answer.product_name) {
+                    console.log(results);
                     chosenItem = results[i];
-                    console.log(chosenItem);
+                    // console.log(chosenItem);
                 }
             }
         })
