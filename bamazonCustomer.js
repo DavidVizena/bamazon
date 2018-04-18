@@ -26,7 +26,7 @@ function selectItem(result) {
             name: "product",
             type: "input",
             message: "What is the id of the item you would like to buy?"
-            },
+        },
         {
             name: "quantity",
             type: "input",
@@ -45,10 +45,11 @@ function selectItem(result) {
                 // console.log(result[0].department_name);
                 // console.log(result[0].price);
                 // console.log(result[0].stock_quantity);
-                if(result[0].stock_quantity >= howMany){
+                if (result[0].stock_quantity >= howMany) {
                     result[0].stock_quantity -= howMany;
+                    console.log(`The new avaliable stock is ${result[0].stock_quantity}`);
                 }
-                else console.log(`I'm sorry, there are only ${howMany} units avaliable`);
+                else console.log(`I'm sorry, there are only ${id} units avaliable`);
             });
         })
 };
