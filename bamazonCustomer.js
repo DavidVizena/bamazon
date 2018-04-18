@@ -10,30 +10,23 @@ var connection = mysql.createConnection({
     database: "bamazon_DB"
 });
 
- connection.connect(function(err){
+connection.connect(function (err) {
     if (err) throw err;
-    connection.query("SELECT * FROM products", function(err, result){
+    connection.query("SELECT * FROM products", function (err, result) {
         if (err) throw err;
         selectItem(result);
     })
- });
+});
 
 
-function selectItem(results) {
-    console.log(results);
+function selectItem(result) {
+    console.log(result);
     inquirer.prompt([
         {
             name: "product",
             type: "input",
-            choices: function () {
-                var choiceArray = [];
-                for (let i = 0; i < results.length; i++) {
-                    choiceArray.push(results[i].product_name);
-                }
-                return choiceArray;
+            message: "What is the id of the item you would like to buy?"
             },
-            message: "what is the id of the item you would like to buy?"
-        },
         {
             name: "quantity",
             type: "input",
@@ -44,13 +37,17 @@ function selectItem(results) {
             var id = answer.product;
             var howMany = answer.quantity;
             var chosenItem;
-            connection.query(`SELECT * FROM products WHERE item_id = ${id}`);
-            for (var i = 0; i < results.length; i++) {
-                if (results[i].product_name === answer.product_name) {
-                    console.log(results);
-                    chosenItem = results[i];
-                    // console.log(chosenItem);
-                }
-            }
+            console.log(id);
+            console.log(howMany);
+
+            connection.query(`SELECT * FROM products WHERE item_id = ${id}`, function (err, result) {
+                console.log(result);
+                console.log(result.item_id);
+                console.log(result.product_name);
+                console.log(result.department_name);
+                console.log(result.price);
+                console.log(result.stock_quantity);
+            });
         })
+    
 };
