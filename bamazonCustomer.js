@@ -42,11 +42,11 @@ function selectItem(result) {
 
             connection.query(`SELECT * FROM products WHERE item_id = ${id}`, function (err, result) {
                 console.log(result);
-                console.log(result.item_id);
-                console.log(result.product_name);
-                console.log(result.department_name);
-                console.log(result.price);
-                console.log(result.stock_quantity);
+                console.log(result[0].item_id);
+                console.log(result[0].product_name);
+                console.log(result[0].department_name);
+                console.log(result[0].price);
+                console.log(result[0].stock_quantity);
             });
         })
     
