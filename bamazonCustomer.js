@@ -37,17 +37,18 @@ function selectItem(result) {
             var id = answer.product;
             var howMany = answer.quantity;
             var chosenItem;
-            console.log(id);
-            console.log(howMany);
 
             connection.query(`SELECT * FROM products WHERE item_id = ${id}`, function (err, result) {
-                console.log(result);
-                console.log(result[0].item_id);
-                console.log(result[0].product_name);
-                console.log(result[0].department_name);
-                console.log(result[0].price);
-                console.log(result[0].stock_quantity);
+                // console.log(result);
+                // console.log(result[0].item_id);
+                // console.log(result[0].product_name);
+                // console.log(result[0].department_name);
+                // console.log(result[0].price);
+                // console.log(result[0].stock_quantity);
+                if(result[0].stock_quantity >= howMany){
+                    result[0].stock_quantity -= howMany;
+                }
+                else console.log(`I'm sorry, there are only ${howMany} units avaliable`);
             });
         })
-    
 };
