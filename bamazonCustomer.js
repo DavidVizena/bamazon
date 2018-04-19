@@ -52,7 +52,7 @@ function selectItem(result) {
                     connection.query(`UPDATE products SET stock_quantity = ${result[0].stock_quantity} - ${howMany} WHERE item_id = ${id}`);
                     console.log(`The new avaliable stock is ${result[0].stock_quantity - howMany}`);
                 }
-                else console.log(`I'm sorry, there are only ${id} units avaliable`);
+                else console.log(`I'm sorry, there are not enough units avaliable`);
             });
         })
 };
