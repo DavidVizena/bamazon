@@ -39,15 +39,18 @@ function selectItem(result) {
             var chosenItem;
 
             connection.query(`SELECT * FROM products WHERE item_id = ${id}`, function (err, result) {
-                // console.log(result);
-                // console.log(result[0].item_id);
-                // console.log(result[0].product_name);
-                // console.log(result[0].department_name);
-                // console.log(result[0].price);
-                // console.log(result[0].stock_quantity);
+                console.log(`
+                The information for the item you requested is:
+                Item ID: ${result[0].item_id}
+                Product Name: ${result[0].product_name}
+                Department Name:${result[0].department_name}
+                Unit Price: ${result[0].price}
+                Stock Avaliable: ${result[0].stock_quantity}
+                `);
                 if (result[0].stock_quantity >= howMany) {
-                    result[0].stock_quantity -= howMany;
-                    console.log(`The new avaliable stock is ${result[0].stock_quantity}`);
+                    // result[0].stock_quantity -= howMany;
+                    connection.query(`UPDATE products SET stock_quantity = ${result[0].stock_quantity} - ${howMany} WHERE item_id = ${id}`);
+                    console.log(`The new avaliable stock is ${result[0].stock_quantity - howMany}`);
                 }
                 else console.log(`I'm sorry, there are only ${id} units avaliable`);
             });
